@@ -536,7 +536,7 @@
                 </button>
                 
                 <p class="portal-note">
-                    ℹ Accessible only when connected to the same Wi-Fi network as the SHIELD device (typically 192.168.4.1)
+                    ℹ Accessible only when connected to the same Wi-Fi network as the SHIELD device (shield.local)
                 </p>
             </div>
         </section>
@@ -623,10 +623,10 @@
     <script>
         function openDevicePortal() {
             // Attempt to open the local device portal
-            window.open('http://192.168.4.1', '_blank');
+            window.open('http://shield.local', '_blank');
             
             // Also provide console feedback for debugging
-            console.log('Attempting to open device portal at http://192.168.4.1');
+            console.log('Attempting to open device portal at http://shield.local');
         }
     </script>
 </body>
