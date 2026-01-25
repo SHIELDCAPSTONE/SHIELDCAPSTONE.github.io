@@ -1,633 +1,827 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S.H.I.E.L.D. - Smart Home Integrated Emergency Level-Monitoring & Disconnection System</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.7;
-            color: #2c3e50;
-            background: linear-gradient(180deg, #f5f7fa 0%, #eef2f7 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            width: 100%;
-            flex: 1;
-        }
-
-        /* ===== HEADER ===== */
-        header {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            margin-bottom: 50px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #d8dce4;
-        }
-
-        header img {
-            width: 100px;
-            height: 100px;
-            object-fit: contain;
-            flex-shrink: 0;
-        }
-
-        header h1 {
-            font-size: 26px;
-            font-weight: 700;
-            color: #1e3a5f;
-            letter-spacing: 2px;
-            margin: 0;
-        }
-
-        /* ===== HERO SECTION ===== */
-        .hero {
-            text-align: center;
-            padding: 60px 20px;
-            margin: 0 0 60px 0;
-            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a7b 100%);
-            color: white;
-            border-radius: 8px;
-        }
-
-        .hero h1 {
-            display: none;
-        }
-
-        .hero h2 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #ffffff;
-            letter-spacing: 1px;
-            border: none;
-            padding: 0;
-        }
-
-        .hero p {
-            font-size: 17px;
-            max-width: 650px;
-            margin: 0 auto;
-            color: #d4dce8;
-            line-height: 1.8;
-        }
-
-        .hero-logo {
-            display: none;
-        }
-
-        /* ===== SECTIONS ===== */
-        section {
-            margin-bottom: 70px;
-        }
-
-        section h2 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: #1e3a5f;
-            border-left: 4px solid #2d5a7b;
-            padding-left: 15px;
-        }
-
-        section h3 {
-            font-size: 19px;
-            font-weight: 600;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            color: #2d5a7b;
-        }
-
-        p {
-            font-size: 16px;
-            margin-bottom: 16px;
-            line-height: 1.8;
-            color: #3a4d5c;
-        }
-
-        /* ===== CONTENT BOX ===== */
-        .content-box {
-            background: #ffffff;
-            border: 1px solid #d8dce4;
-            padding: 30px;
-            border-radius: 6px;
-            margin: 25px 0;
-            line-height: 1.8;
-        }
-
-        /* ===== STATISTICS CALLOUTS ===== */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 40px 0;
-        }
-
-        .stat-card {
-            background: #f0f4f9;
-            border-left: 4px solid #2d5a7b;
-            border-radius: 4px;
-            padding: 25px;
-            text-align: left;
-        }
-
-        .stat-card .number {
-            font-size: 32px;
-            font-weight: 900;
-            color: #1e3a5f;
-            margin-bottom: 8px;
-        }
-
-        .stat-card p {
-            font-size: 14px;
-            margin: 0;
-            line-height: 1.6;
-            color: #2c3e50;
-        }
-
-        /* ===== HOW IT WORKS ===== */
-        .how-it-works ol {
-            margin: 20px 0 20px 30px;
-        }
-
-        .how-it-works li {
-            margin-bottom: 18px;
-            font-size: 16px;
-            color: #3a4d5c;
-            line-height: 1.8;
-        }
-
-        .how-it-works li strong {
-            color: #1e3a5f;
-        }
-
-        /* ===== SYSTEM ARCHITECTURE ===== */
-        .architecture-diagram {
-            background: #f9fafb;
-            border: 1px solid #d8dce4;
-            border-radius: 6px;
-            padding: 40px;
-            margin: 30px 0;
-            text-align: center;
-        }
-
-        .architecture-flow {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin: 30px 0;
-        }
-
-        .flow-box {
-            background: #ffffff;
-            border: 2px solid #2d5a7b;
-            border-radius: 4px;
-            padding: 18px 28px;
-            font-weight: 600;
-            color: #1e3a5f;
-            min-width: 120px;
-            text-align: center;
-            font-size: 14px;
-        }
-
-        .flow-arrow {
-            color: #2d5a7b;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        /* ===== DEMO PORTAL SECTION ===== */
-        .portal-section {
-            background: #f0f4f9;
-            border: 1px solid #2d5a7b;
-            border-radius: 6px;
-            padding: 40px;
-            text-align: center;
-            margin: 40px 0;
-        }
-
-        .portal-button {
-            background: #2d5a7b;
-            color: #ffffff;
-            border: none;
-            padding: 14px 36px;
-            font-size: 15px;
-            font-weight: 600;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 20px 0;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .portal-button:hover {
-            background: #1e3a5f;
-            transform: translateY(-1px);
-        }
-
-        .portal-button:active {
-            transform: translateY(0);
-        }
-
-        .portal-note {
-            font-size: 13px;
-            color: #666;
-            margin-top: 15px;
-            font-style: italic;
-        }
-
-        /* ===== BULLET LISTS ===== */
-        .bullet-list {
-            list-style: none;
-            margin: 20px 0;
-        }
-
-        .bullet-list li {
-            margin-bottom: 14px;
-            padding-left: 24px;
-            position: relative;
-            color: #3a4d5c;
-            font-size: 15px;
-            line-height: 1.7;
-        }
-
-        .bullet-list li:before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: #2d5a7b;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .bullet-list li strong {
-            color: #1e3a5f;
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: linear-gradient(180deg, transparent 0%, rgba(30, 58, 95, 0.08) 100%);
-            border-top: 2px solid #2d5a7b;
-            padding: 50px 20px;
-            margin-top: 80px;
-            color: #666;
-        }
-
-        footer .footer-container {
-            max-width: 900px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        footer .footer-section {
-            margin-bottom: 0;
-        }
-
-        footer .section-title {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #2d5a7b;
-            margin-bottom: 12px;
-        }
-
-        footer p {
-            margin: 5px 0;
-            font-size: 13px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        footer a {
-            color: #2d5a7b;
-            text-decoration: none;
-            transition: color 0.2s ease;
-            font-weight: 600;
-        }
-
-        footer a:hover {
-            color: #1e3a5f;
-        }
-
-        footer .divider {
-            display: none;
-        }
-
-        footer .footer-bottom {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(45, 90, 123, 0.2);
-            text-align: center;
-            font-size: 12px;
-            color: #999;
-            grid-column: 1 / -1;
-        }
-
-        /* ===== RESPONSIVE DESIGN ===== */
-        @media (max-width: 768px) {
-            .container {
-                padding: 25px 20px;
-            }
-
-            footer .footer-container {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-
-            .hero {
-                padding: 50px 20px;
-                margin: 0 0 40px 0;
-            }
-
-            .hero h1 {
-                font-size: 48px;
-                letter-spacing: 2px;
-            }
-
-            .hero h2 {
-                font-size: 18px;
-            }
-
-            section h2 {
-                font-size: 26px;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .architecture-flow {
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .flow-arrow {
-                transform: rotate(90deg);
-                margin: 5px 0;
-            }
-
-            .portal-section {
-                padding: 30px 20px;
-            }
-
-            footer p {
-                font-size: 12px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px 15px;
-            }
-
-            .hero {
-                padding: 40px 15px;
-                margin: 0 0 30px 0;
-            }
-
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .hero h2 {
-                font-size: 16px;
-            }
-
-            .hero p {
-                font-size: 15px;
-            }
-
-            section h2 {
-                font-size: 22px;
-                margin-bottom: 18px;
-            }
-
-            section h3 {
-                font-size: 17px;
-            }
-
-            p {
-                font-size: 15px;
-            }
-
-            .portal-button {
-                padding: 12px 28px;
-                font-size: 14px;
-            }
-
-            .content-box {
-                padding: 20px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S.H.I.E.L.D. - Smart Home Integrated Emergency Level-Monitoring & Disconnection System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f1c2c;
+      --navy: #102a43;
+      --steel: #1e3a5f;
+      --sky: #2d5a7b;
+      --fog: #eef2f7;
+      --mist: #f7f9fc;
+      --line: #d3dbe6;
+      --accent: #3aa0ff;
+      --accent-dark: #1f6fc2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Space Grotesk", "Segoe UI", sans-serif;
+      line-height: 1.7;
+      color: var(--ink);
+      background: radial-gradient(circle at top right, #e3ebf6 0%, var(--mist) 55%, #ffffff 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 36px 20px 80px;
+      width: 100%;
+      flex: 1;
+    }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 36px;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand-lockup img {
+      width: 88px;
+      height: 88px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--steel);
+      letter-spacing: 3px;
+      margin-bottom: 4px;
+    }
+
+    .brand-tag {
+      font-size: 14px;
+      color: #52657a;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 64px 20px;
+      margin: 0 0 56px 0;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--sky) 100%);
+      color: white;
+      border-radius: 18px;
+      box-shadow: 0 24px 60px rgba(12, 24, 40, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(58, 160, 255, 0.45), transparent 65%);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      bottom: -140px;
+      left: -120px;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.18), transparent 70%);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .hero h2 {
+      font-size: 34px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #ffffff;
+      letter-spacing: 0.8px;
+      font-family: "Fraunces", serif;
+    }
+
+    .hero p {
+      font-size: 17px;
+      max-width: 650px;
+      margin: 0 auto;
+      color: #d4dce8;
+      line-height: 1.8;
+    }
+
+    section {
+      margin-bottom: 70px;
+    }
+
+    section h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 25px;
+      color: var(--steel);
+      border-left: 4px solid var(--sky);
+      padding-left: 15px;
+      font-family: "Fraunces", serif;
+    }
+
+    section h3 {
+      font-size: 19px;
+      font-weight: 600;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      color: var(--sky);
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 16px;
+      line-height: 1.8;
+      color: #3a4d5c;
+    }
+
+    .content-box {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      padding: 30px;
+      border-radius: 12px;
+      margin: 25px 0;
+      line-height: 1.8;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 40px 0;
+    }
+
+    .stat-card {
+      background: #e9f1fb;
+      border-left: 4px solid var(--sky);
+      border-radius: 10px;
+      padding: 25px;
+      text-align: left;
+    }
+
+    .stat-card .number {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--steel);
+      margin-bottom: 8px;
+    }
+
+    .stat-card p {
+      font-size: 14px;
+      margin: 0;
+      line-height: 1.6;
+      color: #2c3e50;
+    }
+
+    .band {
+      background: linear-gradient(135deg, #102a43 0%, #1e3a5f 100%);
+      color: #ffffff;
+      border-radius: 18px;
+      padding: 36px;
+      margin: 40px 0 60px;
+    }
+
+    .band h2 {
+      color: #ffffff;
+      border-left-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .band p {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .band-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .band-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .band-card .number {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .image-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin: 24px 0 0;
+    }
+
+    .image-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 12px 24px rgba(15, 30, 50, 0.08);
+    }
+
+    .image-placeholder {
+      height: 160px;
+      border-radius: 12px;
+      background: linear-gradient(140deg, #d9e6f5 0%, #f0f5fb 50%, #ffffff 100%);
+      border: 1px dashed #c0cfdf;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: #5a6f86;
+      margin-bottom: 12px;
+    }
+
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .step-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 10px 20px rgba(15, 30, 50, 0.08);
+    }
+
+    .step-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #ffffff;
+      background: var(--sky);
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .step-title {
+      font-weight: 700;
+      color: var(--steel);
+      margin-bottom: 8px;
+    }
+
+    .architecture-diagram {
+      background: #f9fafb;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 40px;
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .architecture-flow {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 30px 0;
+    }
+
+    .flow-box {
+      background: #ffffff;
+      border: 2px solid var(--sky);
+      border-radius: 8px;
+      padding: 18px 28px;
+      font-weight: 600;
+      color: var(--steel);
+      min-width: 120px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .flow-arrow {
+      color: var(--sky);
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .portal-section {
+      background: #f0f5fb;
+      border: 1px solid var(--sky);
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .portal-button {
+      background: var(--sky);
+      color: #ffffff;
+      border: none;
+      padding: 14px 36px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 20px 0;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 14px 24px rgba(30, 58, 95, 0.25);
+    }
+
+    .portal-button:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .portal-button.ghost {
+      background: transparent;
+      color: var(--sky);
+      border: 1px solid var(--sky);
+      box-shadow: none;
+    }
+
+    .portal-note {
+      font-size: 13px;
+      color: #666;
+      margin-top: 15px;
+      font-style: italic;
+    }
+
+    .bullet-list {
+      list-style: none;
+      margin: 20px 0;
+    }
+
+    .bullet-list li {
+      margin-bottom: 14px;
+      padding-left: 24px;
+      position: relative;
+      color: #3a4d5c;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .bullet-list li:before {
+      content: ">";
+      position: absolute;
+      left: 0;
+      color: var(--sky);
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .bullet-list li strong {
+      color: var(--steel);
+    }
+
+    footer {
+      background: linear-gradient(180deg, transparent 0%, rgba(30, 58, 95, 0.08) 100%);
+      border-top: 2px solid var(--sky);
+      padding: 50px 20px;
+      margin-top: 80px;
+      color: #666;
+    }
+
+    footer .footer-container {
+      max-width: 980px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    footer .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--sky);
+      margin-bottom: 12px;
+    }
+
+    footer p {
+      margin: 5px 0;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    footer a {
+      color: var(--sky);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      color: var(--steel);
+    }
+
+    footer .footer-bottom {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(45, 90, 123, 0.2);
+      text-align: center;
+      font-size: 12px;
+      color: #999;
+      grid-column: 1 / -1;
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+      margin-top: 22px;
+      padding: 16px 0 0;
+      border-top: 1px solid rgba(45, 90, 123, 0.2);
+      text-align: center;
+      font-weight: 600;
+      color: #546275;
+    }
+
+    @media (max-width: 900px) {
+      .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 25px 20px;
+      }
+
+      footer .footer-container {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .hero {
+        padding: 50px 20px;
+        margin: 0 0 40px 0;
+      }
+
+      .hero h2 {
+        font-size: 22px;
+      }
+
+      section h2 {
+        font-size: 26px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .architecture-flow {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .flow-arrow {
+        transform: rotate(90deg);
+        margin: 5px 0;
+      }
+
+      .portal-section {
+        padding: 30px 20px;
+      }
+
+      .band {
+        padding: 28px 22px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px 15px;
+      }
+
+      .hero {
+        padding: 40px 15px;
+        margin: 0 0 30px 0;
+      }
+
+      .hero h2 {
+        font-size: 20px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      section h2 {
+        font-size: 22px;
+        margin-bottom: 18px;
+      }
+
+      section h3 {
+        font-size: 17px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+
+      .portal-button {
+        padding: 12px 28px;
+        font-size: 14px;
+      }
+
+      .content-box {
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- ===== HEADER ===== -->
-        <header>
-            <img src="./assets/images/SHIELDD.png?v=1" alt="S.H.I.E.L.D. Shield Icon">
-            <h1>S.H.I.E.L.D.</h1>
-        </header>
+  <div class="container">
+    <header class="site-header">
+      <div class="brand-lockup">
+        <img src="./assets/images/SHIELDD.png?v=1" alt="S.H.I.E.L.D. Shield Icon">
+        <div>
+          <div class="brand-name">S.H.I.E.L.D.</div>
+          <div class="brand-tag">Smart Home Integrated Emergency Level-Monitoring & Disconnection System</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="portal-button" onclick="openDevicePortal()">Open Device Portal</button>
+      </div>
+    </header>
 
-        <!-- ===== HERO SECTION ===== -->
-        <section class="hero">
-            <h2>Smart Home Integrated Emergency Level-Monitoring & Disconnection System</h2>
-            <p>An automated system designed to protect homes and communities during flood events, with special attention to vulnerable populations.</p>
-        </section>
+    <section class="hero">
+      <div class="hero-badge">Capstone 2026</div>
+      <h2>Automated, offline flood safety for homes and communities.</h2>
+      <p>An automated system designed to protect homes and communities during flood events, with special attention to vulnerable populations.</p>
+    </section>
 
-        <!-- ===== PROBLEM STATEMENT ===== -->
-        <section>
-            <h2>Problem Statement</h2>
-            <div class="content-box">
-                <p><strong>S.H.I.E.L.D. (Smart Home Integrated Emergency Level-Monitoring & Disconnection System)</strong> addresses a critical safety challenge: flooding is one of the most common natural disasters globally, and when water contacts electrical systems, the combination creates significant hazards—particularly for residents who cannot respond quickly due to mobility limitations, age, or other factors. This risk is disproportionately borne by people with disabilities, older adults, low-income households, and residents of flood-prone communities.</p>
-                <p>Many existing safety systems depend on manual intervention, external power, or centralized services that may fail during emergencies. An automated, locally-operated system that remains functional without internet connectivity can meaningfully reduce both the likelihood and severity of electrical hazards during flood events.</p>
-            </div>
-        </section>
+    <section>
+      <h2>Problem Statement</h2>
+      <div class="content-box">
+        <p><strong>S.H.I.E.L.D. (Smart Home Integrated Emergency Level-Monitoring & Disconnection System)</strong> addresses a critical safety challenge: flooding is one of the most common natural disasters globally, and when water contacts electrical systems, the combination creates significant hazards--particularly for residents who cannot respond quickly due to mobility limitations, age, or other factors. This risk is disproportionately borne by people with disabilities, older adults, low-income households, and residents of flood-prone communities.</p>
+        <p>Many existing safety systems depend on manual intervention, external power, or centralized services that may fail during emergencies. An automated, locally-operated system that remains functional without internet connectivity can meaningfully reduce both the likelihood and severity of electrical hazards during flood events.</p>
+      </div>
+    </section>
 
-        <!-- ===== WHY IT MATTERS ===== -->
-        <section>
-            <h2>Why It Matters: Community & Accessibility</h2>
-            <p>Floods are among the most frequent weather-related disasters globally, and their impact on safety is not uniform. Approximately 1 in 6 people worldwide live with some form of disability, and during emergencies, these individuals face compounded risks due to limited mobility, communication barriers, and reduced access to timely information. Automated safety systems can reduce reliance on rapid manual response and operate independently of external infrastructure—ensuring protection reaches those who need it most.</p>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="number">35–40%</div>
-                    <p>Floods account for 35–40% of all weather-related natural disasters globally</p>
-                </div>
-                <div class="stat-card">
-                    <div class="number">1 in 6</div>
-                    <p>Approximately 1.3 billion people worldwide (~16%) live with disabilities</p>
-                </div>
-                <div class="stat-card">
-                    <div class="number">Critical Risk</div>
-                    <p>Electrical hazards are a primary cause of injury and death during flood emergencies</p>
-                </div>
-            </div>
-        </section>
+    <section>
+      <h2>Why It Matters: Community & Accessibility</h2>
+      <p>Floods are among the most frequent weather-related disasters globally, and their impact on safety is not uniform. Approximately 1 in 6 people worldwide live with some form of disability, and during emergencies, these individuals face compounded risks due to limited mobility, communication barriers, and reduced access to timely information. Automated safety systems can reduce reliance on rapid manual response and operate independently of external infrastructure--ensuring protection reaches those who need it most.</p>
 
-        <!-- ===== HOW IT WORKS ===== -->
-        <section>
-            <h2>How It Works</h2>
-            <div class="how-it-works">
-                <ol>
-                    <li><strong>Continuous Monitoring:</strong> Dual sensors (ultrasonic and float switch) continuously monitor water level in real time.</li>
-                    <li><strong>Data Processing:</strong> ESP32 microcontroller validates sensor data to ensure accuracy and reduce false triggers.</li>
-                    <li><strong>Tiered Alerts:</strong> Progressive alerts (Warning → Critical) are triggered via audible buzzer and SMS notification to configured recipients, providing time for coordination and response.</li>
-                    <li><strong>Automatic Power Disconnection:</strong> At critical water level, a relay module disconnects electrical power from protected circuits, eliminating the electrical hazard at its source.</li>
-                </ol>
-                <p style="margin-top: 20px; font-style: italic; color: #666;">The system is designed to function autonomously during emergencies, reducing dependence on manual intervention when rapid response may not be possible.</p>
-            </div>
-        </section>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="number">35-40%</div>
+          <p>Floods account for 35-40% of all weather-related natural disasters globally</p>
+        </div>
+        <div class="stat-card">
+          <div class="number">1 in 6</div>
+          <p>Approximately 1.3 billion people worldwide (~16%) live with disabilities</p>
+        </div>
+        <div class="stat-card">
+          <div class="number">Critical Risk</div>
+          <p>Electrical hazards are a primary cause of injury and death during flood emergencies</p>
+        </div>
+      </div>
+    </section>
 
-        <!-- ===== SYSTEM ARCHITECTURE ===== -->
-        <section>
-            <h2>System Architecture</h2>
-            <div class="architecture-diagram">
-                <div class="architecture-flow">
-                    <div class="flow-box">Sensors<br><span style="font-size: 11px;">(Ultrasonic<br>+ Float)</span></div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-box">ESP32<br>Controller</div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-box">Alert<br>System</div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-box">Relay<br>Module</div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-box">Protected<br>Circuits</div>
-                </div>
-            </div>
+    <section class="band">
+      <h2>Field Readiness</h2>
+      <p>Built to operate even when infrastructure fails, with local-only controls and rapid response.</p>
+      <div class="band-grid">
+        <div class="band-card">
+          <div class="number">24/7</div>
+          <p>Continuous monitoring with local processing.</p>
+        </div>
+        <div class="band-card">
+          <div class="number">Dual</div>
+          <p>Redundant sensing to reduce false triggers.</p>
+        </div>
+        <div class="band-card">
+          <div class="number">Local</div>
+          <p>No cloud dependency for safety decisions.</p>
+        </div>
+      </div>
+    </section>
 
-            <h3>Design Principles</h3>
-            <ul class="bullet-list">
-                <li><strong>Offline-First Operation:</strong> All critical decisions are made locally on the ESP32 without requiring internet connectivity. Emergency response is never dependent on cloud services or external networks.</li>
-                <li><strong>Independent Local Control:</strong> Sensor data is processed and decisions are executed on the device itself, ensuring low latency and reliability even during widespread infrastructure failures.</li>
-                <li><strong>Resilience During Emergencies:</strong> The core flood detection and electrical disconnection mechanism remains fully operational 24/7, regardless of internet availability, power fluctuations, or service disruptions elsewhere.</li>
-            </ul>
-        </section>
+    <section>
+      <h2>Device Gallery</h2>
+      <p>Visual references of the current prototype and enclosure concept.</p>
+      <div class="image-strip">
+        <div class="image-card">
+          <div class="image-placeholder">Prototype Unit</div>
+          <p>ESP32 control module with relay and sensor mounts.</p>
+        </div>
+        <div class="image-card">
+          <div class="image-placeholder">Enclosure Concept</div>
+          <p>Industrial-inspired tower housing for wet environments.</p>
+        </div>
+        <div class="image-card">
+          <div class="image-placeholder">Local Dashboard</div>
+          <p>On-device monitoring and configuration portal.</p>
+        </div>
+      </div>
+    </section>
 
-        <!-- ===== DEMO / DEVICE PORTAL ===== -->
-        <section>
-            <h2>Live Demonstration & Device Portal</h2>
-            <div class="portal-section">
-                <h3>Built-In Local Dashboard</h3>
-                <p>The S.H.I.E.L.D. device hosts a local web dashboard served directly by the ESP32. Accessible only on the same Wi-Fi network, the dashboard requires no external cloud services or internet connectivity.</p>
-                
-                <button class="portal-button" onclick="openDevicePortal()">
-                    Open Device Portal (Local Network)
-                </button>
-                
-                <p class="portal-note">
-                    ℹ Accessible only when connected to the same Wi-Fi network as the SHIELD device (shield.local)
-                </p>
-            </div>
-        </section>
+    <section>
+      <h2>How It Works</h2>
+      <div class="how-steps">
+        <div class="step-card">
+          <div class="step-icon">S</div>
+          <div class="step-title">Continuous Monitoring</div>
+          <p>Dual sensors (ultrasonic and float switch) monitor water level in real time.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-icon">C</div>
+          <div class="step-title">Data Processing</div>
+          <p>ESP32 validates sensor data to ensure accuracy and reduce false triggers.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-icon">A</div>
+          <div class="step-title">Tiered Alerts</div>
+          <p>Progressive alerts (Warning -> Critical) trigger buzzer and SMS for early response.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-icon">R</div>
+          <div class="step-title">Power Disconnection</div>
+          <p>At critical water level, a relay disconnects electrical power from protected circuits.</p>
+        </div>
+      </div>
+      <p style="margin-top: 20px; font-style: italic; color: #666;">The system is designed to function autonomously during emergencies, reducing dependence on manual intervention when rapid response may not be possible.</p>
+    </section>
 
-        <!-- ===== LOCAL DASHBOARD CAPABILITIES ===== -->
-        <section>
-            <h2>Dashboard & Configuration</h2>
-            <p>The built-in ESP32 dashboard provides real-time monitoring and configuration without requiring code changes:</p>
-            
-            <h3>Monitoring Features</h3>
-            <ul class="bullet-list">
-                <li><strong>Live Water Distance Display:</strong> Real-time sensor readings showing current water distance from the device</li>
-                <li><strong>System State Indicator:</strong> Clear display of current operational status—Normal, Warning, or Critical</li>
-                <li><strong>Water Level Trends:</strong> Historical data and trend analysis to estimate time to critical threshold</li>
-                <li><strong>Activity & Alert Log:</strong> Complete record of recent system events for audit, troubleshooting, and situational awareness</li>
-            </ul>
+    <section>
+      <h2>System Architecture</h2>
+      <div class="architecture-diagram">
+        <div class="architecture-flow">
+          <div class="flow-box">Sensors<br><span style="font-size: 11px;">(Ultrasonic<br>+ Float)</span></div>
+          <div class="flow-arrow">-></div>
+          <div class="flow-box">ESP32<br>Controller</div>
+          <div class="flow-arrow">-></div>
+          <div class="flow-box">Alert<br>System</div>
+          <div class="flow-arrow">-></div>
+          <div class="flow-box">Relay<br>Module</div>
+          <div class="flow-arrow">-></div>
+          <div class="flow-box">Protected<br>Circuits</div>
+        </div>
+      </div>
 
-            <h3>Configuration & Maintenance</h3>
-            <p>Non-technical users can configure the system directly via the dashboard:</p>
-            <ul class="bullet-list">
-                <li><strong>Alert Recipients:</strong> Add or modify phone numbers and identifiers for SMS notifications</li>
-                <li><strong>Sensor Calibration:</strong> Adjust thresholds and baseline measurements for the specific installation environment</li>
-                <li><strong>Alert Levels:</strong> Define warning and critical water level thresholds appropriate for each deployment location</li>
-                <li><strong>Wi-Fi Setup:</strong> Manage network connection and configuration settings</li>
-            </ul>
+      <h3>Design Principles</h3>
+      <ul class="bullet-list">
+        <li><strong>Offline-First Operation:</strong> All critical decisions are made locally on the ESP32 without requiring internet connectivity.</li>
+        <li><strong>Independent Local Control:</strong> Sensor data is processed and decisions are executed on the device itself for low latency and reliability.</li>
+        <li><strong>Resilience During Emergencies:</strong> Core detection and disconnection remains operational 24/7 regardless of network outages.</li>
+      </ul>
+    </section>
 
-            <p style="margin-top: 20px;"><strong>Designed for Accessibility:</strong> The dashboard prioritizes clarity and simplicity, enabling caregivers, family members, and community volunteers—regardless of technical background—to monitor and maintain the system effectively.</p>
-        </section>
+    <section>
+      <h2>Live Demonstration & Device Portal</h2>
+      <div class="portal-section">
+        <h3>Built-In Local Dashboard</h3>
+        <p>The S.H.I.E.L.D. device hosts a local web dashboard served directly by the ESP32. Accessible only on the same Wi-Fi network, the dashboard requires no external cloud services or internet connectivity.</p>
+        <div>
+          <button class="portal-button" onclick="openDevicePortal()">Open Device Portal (Local Network)</button>
+          <a class="portal-button ghost" href="./assets/diagram.pdf" target="_blank">View System Diagram (PDF)</a>
+        </div>
+        <p class="portal-note">(i) Accessible only when connected to the same Wi-Fi network as the SHIELD device (shield.local)</p>
+      </div>
+    </section>
 
-        <!-- ===== SAFETY & RELIABILITY ===== -->
-        <section>
-            <h2>Safety & Reliability</h2>
-            <ul class="bullet-list">
-                <li><strong>Grace Period Before Shutdown:</strong> Configurable delay provides time for system verification and emergency response coordination before power disconnection occurs.</li>
-                <li><strong>Manual Override:</strong> Physical switch allows authorized personnel to manually control or bypass the system for maintenance and testing.</li>
-                <li><strong>Dual-Sensor Validation:</strong> Ultrasonic and mechanical float switch provide independent confirmation of water level, significantly reducing false triggers.</li>
-                <li><strong>Continuous Local Operation:</strong> Core safety functions remain operational throughout internet outages, power fluctuations, and external service failures.</li>
-                <li><strong>Fail-Safe Design:</strong> Relay defaults to the safe state; any single point of failure does not compromise the primary safety mechanism.</li>
-            </ul>
-        </section>
+    <section>
+      <h2>Dashboard & Configuration</h2>
+      <p>The built-in ESP32 dashboard provides real-time monitoring and configuration without requiring code changes:</p>
 
-        <!-- ===== COST & PRACTICALITY ===== -->
-        <section>
-            <h2>Affordability & Practical Deployment</h2>
-            <p>S.H.I.E.L.D. is built using low-cost, widely available components selected for reliability, ease of sourcing, and local repair capability. The prototype cost is approximately Php 1,500–2,000, making deployment feasible for residential homes, community centers, small facilities, and nonprofit organizations serving vulnerable populations. The simplicity of the design enables local maintenance and adaptation, avoiding dependence on specialized expertise or expensive service contracts. This approach to affordability and accessibility ensures that flood protection can scale to reach communities historically underserved by expensive, proprietary systems.</p>
-        </section>
+      <h3>Monitoring Features</h3>
+      <ul class="bullet-list">
+        <li><strong>Live Water Distance Display:</strong> Real-time sensor readings showing current water distance from the device.</li>
+        <li><strong>System State Indicator:</strong> Clear display of operational status--Normal, Warning, or Critical.</li>
+        <li><strong>Water Level Trends:</strong> Historical data and trend analysis to estimate time to critical threshold.</li>
+        <li><strong>Activity & Alert Log:</strong> Complete record of recent system events for audit, troubleshooting, and situational awareness.</li>
+      </ul>
 
-        <!-- ===== FOOTER ===== -->
-        <footer>
-            <div class="footer-container">
-                <div class="footer-section">
-                    <div class="section-title">Project Team</div>
-                    <p>Samuel M. Floro</p>
-                    <p>Angel Garcia</p>
-                    <p>Patrice Austine Rivera</p>
-                    <p>Giliane Mendoza</p>
-                    <p>Jay Mark Nolasco</p>
-                    <p>Rein Daeniel John Juat</p>
-                </div>
+      <h3>Configuration & Maintenance</h3>
+      <p>Non-technical users can configure the system directly via the dashboard:</p>
+      <ul class="bullet-list">
+        <li><strong>Alert Recipients:</strong> Add or modify phone numbers and identifiers for SMS notifications.</li>
+        <li><strong>Sensor Calibration:</strong> Adjust thresholds and baseline measurements for the specific installation environment.</li>
+        <li><strong>Alert Levels:</strong> Define warning and critical water level thresholds appropriate for each deployment location.</li>
+        <li><strong>Wi-Fi Setup:</strong> Manage network connection and configuration settings.</li>
+      </ul>
 
-                <div class="footer-section">
-                    <div class="section-title">Institution</div>
-                    <p>San Diego Parochial School</p>
-                    <p>Poblacion I, Valenzuela City</p>
-                    <p>Section: Saint Albert the Great</p>
-                    <p style="margin-top: 10px; font-style: italic; font-size: 12px;">Under the guidance of Mr. Roberto C. Dizon, LPT, MAEd</p>
-                </div>
+      <p style="margin-top: 20px;"><strong>Designed for Accessibility:</strong> The dashboard prioritizes clarity and simplicity, enabling caregivers, family members, and community volunteers--regardless of technical background--to monitor and maintain the system effectively.</p>
+    </section>
 
-                <div class="footer-section">
-                    <div class="section-title">About This Project</div>
-                    <p>S.H.I.E.L.D. is a Grade 12 STEM engineering capstone project focused on improving community safety and accessibility during flood emergencies through automated water-level monitoring and electrical disconnection.</p>
-                    <p style="margin-top: 12px;">
-                        <a href="https://github.com" target="_blank">View Repository →</a>
-                    </p>
-                </div>
+    <section>
+      <h2>Safety & Reliability</h2>
+      <ul class="bullet-list">
+        <li><strong>Grace Period Before Shutdown:</strong> Configurable delay provides time for system verification and coordination before power disconnection.</li>
+        <li><strong>Manual Override:</strong> Physical switch allows authorized personnel to manually control or bypass the system for maintenance.</li>
+        <li><strong>Dual-Sensor Validation:</strong> Ultrasonic and mechanical float switch provide independent confirmation of water level.</li>
+        <li><strong>Continuous Local Operation:</strong> Core safety functions remain operational throughout internet outages and service failures.</li>
+        <li><strong>Fail-Safe Design:</strong> Relay defaults to the safe state; any single point of failure does not compromise the primary mechanism.</li>
+      </ul>
+    </section>
 
-                <div class="footer-bottom">
-                    <p>© 2026 S.H.I.E.L.D. Engineering Capstone Project</p>
-                </div>
-            </div>
-        </footer>
+    <section>
+      <h2>Affordability & Practical Deployment</h2>
+      <p>S.H.I.E.L.D. is built using low-cost, widely available components selected for reliability, ease of sourcing, and local repair capability. The prototype cost is approximately Php 1,000-1,500, making deployment feasible for residential homes, community centers, small facilities, and nonprofit organizations serving vulnerable populations. The simplicity of the design enables local maintenance and adaptation, avoiding dependence on specialized expertise or expensive service contracts. This approach to affordability and accessibility ensures that flood protection can scale to reach communities historically underserved by expensive, proprietary systems.</p>
+    </section>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <div class="section-title">Project Team</div>
+        <p>Samuel M. Floro</p>
+        <p>Angel Garcia</p>
+        <p>Patrice Austine Rivera</p>
+        <p>Giliane Mendoza</p>
+        <p>Jay Mark Nolasco</p>
+        <p>Rein Daeniel John Juat</p>
+      </div>
+
+      <div class="footer-section">
+        <div class="section-title">Institution</div>
+        <p>San Diego Parochial School</p>
+        <p>Poblacion I, Valenzuela City</p>
+        <p>Section: Saint Albert the Great</p>
+        <p style="margin-top: 10px; font-style: italic; font-size: 12px;">Under the guidance of Mr. Roberto C. Dizon, LPT, MAEd</p>
+      </div>
+
+      <div class="footer-section">
+        <div class="section-title">About This Project</div>
+        <p>S.H.I.E.L.D. is a Grade 12 STEM engineering capstone project focused on improving community safety and accessibility during flood emergencies through automated water-level monitoring and electrical disconnection.</p>
+        <p style="margin-top: 12px;">
+          <a href="https://github.com" target="_blank">View Repository -></a>
+        </p>
+      </div>
+
+      <div class="footer-bottom">
+        <p>(c) 2026 S.H.I.E.L.D. Engineering Capstone Project | Flood Safety and Power Disconnection System</p>
+      </div>
     </div>
+  </footer>
 
-    <script>
-        function openDevicePortal() {
-            // Attempt to open the local device portal
-            window.open('http://shield.local', '_blank');
-            
-            // Also provide console feedback for debugging
-            console.log('Attempting to open device portal at http://shield.local');
-        }
-    </script>
+  <script>
+    function openDevicePortal() {
+      window.open('http://shield.local', '_blank');
+      console.log('Attempting to open device portal at http://shield.local');
+    }
+  </script>
 </body>
 </html>
